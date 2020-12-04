@@ -1,0 +1,93 @@
+<html>
+<body>
+<form method="post" action="abc.php">
+ Enter Bread Quantity<input type="text" name="bread" placeholder="Bread Quantity"><br>
+ Enter Vada Quantity<input type="text" name="vada" value="vada" placeholder="Vada Quantity"><br>
+ Enter Samosa Quantity<input type="text" name="samosa" value="samosa" placeholder="Samosa Quantity"><br>
+ Enter Vada price<input type="text" name="vada_price" value="vada_price" placeholder="Vada price"><br>
+ Enter Samosa price<input type="text" name="samosa_price" value="samosa_price" placeholder="Samosa price"><br>
+ <input type="submit" value="submit" name="submit">
+ </form>
+ </body>
+ </html>
+ <?php
+ if(isset($_POST['submit'])){
+ $bread_qty=$_POST['bread'];
+ $vada_qty=$_POST['vada'];
+ $samosa_qty=$_POST['samosa'];
+ $vada_price=$_POST['vada_price'];
+ $samosa_price=$_POST['samosa_price'];
+ $bread_avilable=intval($bread_qty/2);
+ $bread_remaining=$bread_qty%2;
+ if($samosa_price>=$vada_price)
+ {
+	if($bread_avilable==$samosa_qty){
+	$samosa_sell=($bread_avilable*$samosa_price); 
+	}
+	else if($bread_avilable>$samosa_qty){
+		$breadsamosa=($bread_avilable-$samosa_qty);
+		$samosa_sell=($samosa_qty*$samosa_price); 
+		$bread_remaining=$bread_remaining+($breadsamosa*2);
+	}
+	else if($bread_avilable<$samosa_qty){
+		$breadsamosa=($samosa_qty-$bread_avilable);
+		$samosa_sell=($bread_avilable*$samosa_price);
+		$bread_remaining=$bread_remaining+($breadsamosa*2);
+	}
+	if($bread_remaining>=2)
+	{
+		$bread_available=intval($bread_remaining/2);
+		
+		if($bread_available==$vada_qty){
+	$vada_sell=($bread_avilable*$vada_price); 
+	}
+	else if($bread_available>$vada_qty){
+		$breadsamosa=($bread_avilable-$vada_qty);
+		$vada_sell=($vada_qty*$vada_price); 
+		
+	}
+	else if($bread_available<$vada_qty){
+		$breadsamosa=($vada_qty-$bread_avilable);
+		$vada_sell=($bread_available*$vada_price); 
+		
+	}
+	}	
+ }
+ if($vada_price>$samosa_price)
+ {
+	if($bread_avilable==$vada_qty){
+	$vada_sell=($bread_avilable*$vada_price);
+	}
+	else if($bread_avilable>$vada_qty){
+		$breadsamosa=($bread_avilable-$vada_qty);
+		$vada_sell=($vada_qty*$vada_price); 
+		$bread_remaining=$bread_remaining+($breadsamosa*2);
+	}
+	else if($bread_avilable<$vada_qty){
+		$breadsamosa=($vada_qty-$bread_avilable);
+		$samosa_sell=($bread_available*$vada_price);
+		$bread_remaining=$bread_remaining+($breadsamosa*2);
+	}
+	if($bread_remaining>=2)
+	{
+		$bread_available=intval($bread_remaining/2);
+		if($bread_available==$samosa_qty){
+	$samosa_sell=($bread_avilable*$samosa_price);
+	}
+	else if($bread_available>$samosa_qty){
+		$breadsamosa=($bread_available-$samosa_qty);
+		$samosa_sell=($samosa_qty*$samosa_price); 
+		$bread_remaining=$bread_remaining+($breadsamosa*2);
+	}
+	else if($bread_available<$samosa_qty){
+		$breadsamosa=($samosa_qty-$bread_avilable);
+		$samosa_sell=($bread_available*$samosa_price); 
+		$bread_remaining=$bread_remaining+($breadsamosa*2);
+	}
+	
+	}	
+ }
+ $sell=$samosa_sell+$vada_sell;
+ echo $sell."(Maximum profit possible is RS.". $sell,")";
+ }
+?>

@@ -1,0 +1,29 @@
+<html>
+<body>
+<form method="post" action="server.php">
+ Enter No of servers<input type="text" placeholder="No. of Servears" name="server_no"><br>
+ Enter Server load <input type="text" name="server[]">
+ <input type="text" name="server[]">
+ <input type="text" name="server[]">
+ <input type="text" name="server[]">
+ <input type="text" name="server[]"><br>
+ <input type="submit" value="submit" name="submit">
+ <form>
+<body>
+</html>
+<?php
+	if(isset($_POST['submit'])){
+	 $server=$_POST['server']; 
+	 $n=$_POST['server_no'];
+	 foreach($server as $key=>$val){
+		  
+	  if($val<50){
+		$n=intval($n/2);
+	  }else {
+	   $n=2*$n+1;
+	  }
+	 }
+	
+	echo $n."(After 5 min,".$n."server is running)";
+	}
+?>
